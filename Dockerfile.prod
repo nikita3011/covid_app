@@ -1,0 +1,43 @@
+
+
+FROM node:alpine as build-stage
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --silent
+RUN npm install 
+COPY . ./
+RUN npm run build
+
+
+
+FROM  nginx:stable-alpine
+
+# copy Nginx config files
+COPY default.conf /etc/nginx/conf.d/
+COPY nginx.conf /etc/nginx/
+
+# set file permissions for nginx user
+RUN chown -R nginx:nginx /var/cache/nginx /etc/nginx/
+
+# switch to non-root user
+USER nginx
+
+
+# ARG A_VARIABLE
+ARG user
+
+
+#Labels to add metadata 
+LABEL user = ${user}
+
+EXPOSE 8080
+# USER nobody
+# COPY nginx.non-root.conf /etc/nginx/ngnix.conf
+COPY --from=build-stage /app/build/ /usr/share/nginx/html
+CMD ["nginx", "-g","daemon off;"]
+
