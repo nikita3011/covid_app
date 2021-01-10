@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Clone sources') {
             steps {
-                git url: 'https://github.com/Divalsehgal/hotelapp.git'
+                git url: 'https://github.com/nikita3011/covid_app'
             }
         }
         stage('build & SonarQube analysis') {
