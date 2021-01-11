@@ -1,45 +1,50 @@
-/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
-    stages {
-        stage('Build') {
+       stages {
+        stage('Install') {
             steps {
+                echo 'Installation...'
                 sh 'npm install'
-            }
-        }
-        stage('Clone sources') {
-            steps {
-                git url: 'https://github.com/nikita3011/covid_app'
-            }
-        }
-        stage('build & SonarQube analysis') {
-            agent any
-            steps {
-                script {
-                    scannerHome = tool 'SonarScanner'
-                }
-                withSonarQubeEnv('SonarQube') {
-                    echo "${scannerHome}"
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
-        stage('Quality gate') {
-            steps {
-                waitForQualityGate abortPipeline: true
             }
         }
         stage('Test') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                echo 'Testing...'
+                sh 'npm test'
             }
         }
-        stage('Deliver') {
+        stage('Sonarqube') {
+            environment {
+                 scannerHome = tool 'sonar_scanner'
+            }
             steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+                echo 'Scanning....'
+                withSonarQubeEnv('Sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+             }
+                timeout(time: 10, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
             }
         }
     }
+     stage('Build') {
+            steps {
+                echo 'Production build...'
+                sh 'npm run build'
+            }
+        }
+    stage('Upload') {
+        steps{
+        echo 'Uploading...'
+        dir('/home/user/.jenkins/workspace/samplejenkins'){
+            pwd(); //Log current directory
+            withAWS(region:'us-east-2',credentials:'aws-credentials') {
+                //  def identity=awsIdentity();//Log AWS credentials
+                // Upload files from working directory 'dist' in your project workspace
+                s3Upload(bucket:"reshma-assignment", workingDir:'build', includePathPattern:'**/*');
+            }
+        }
+    }
+    }
+}
 }
