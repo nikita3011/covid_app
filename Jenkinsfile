@@ -41,7 +41,7 @@ pipeline {
             withAWS(region:'us-east-2',credentials:'aws-credentials') {
                 //  def identity=awsIdentity();//Log AWS credentials
                 // Upload files from working directory 'dist' in your project workspace
-                s3Upload(bucket:"reshma-assignment", workingDir:'build', includePathPattern:'**/*');
+                s3Upload(bucket:"nikita-deployment-assignment", workingDir:'build', includePathPattern:'**/*');
             }
         }
     }

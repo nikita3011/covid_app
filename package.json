@@ -48,5 +48,20 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "jest": "^24.9.0",
     "jest-enzyme": "^7.1.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "<rootDir>/src/index.js",
+      "<rootDir>/src/reportWebVitals.js"
+    ]
   }
 }
