@@ -16,6 +16,21 @@
     "react-scripts": "3.4.1",
     "snyk": "^1.437.3"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "<rootDir>/src/index.js",
+      "<rootDir>/src/reportWebVitals.js"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -48,20 +63,5 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "jest": "^24.9.0",
     "jest-enzyme": "^7.1.2"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
-    ],
-    "coverageReporters": [
-      "text",
-      "cobertura"
-    ],
-    "coveragePathIgnorePatterns": [
-      "node_modules",
-      "<rootDir>/src/index.js",
-      "<rootDir>/src/reportWebVitals.js"
-    ]
   }
 }
