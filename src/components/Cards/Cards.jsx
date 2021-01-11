@@ -13,6 +13,7 @@ const Info = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
     <div className={styles.container}>
       <Grid container spacing={3} justify="center">
         <CardComponent
+          data-test = "card"
           className={styles.infected}
           cardTitle="Infected"
           value={confirmed.value}
@@ -20,6 +21,7 @@ const Info = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
           cardSubtitle="Number of active cases from COVID-19."
         />
         <CardComponent
+           data-test = "card"
           className={styles.recovered}
           cardTitle="Recovered"
           value={recovered.value}
@@ -27,6 +29,7 @@ const Info = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
           cardSubtitle="Number of recoveries from COVID-19."
         />
         <CardComponent
+           data-test = "card"
           className={styles.deaths}
           cardTitle="Deaths"
           value={deaths.value}

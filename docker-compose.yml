@@ -2,17 +2,17 @@
 version: '3'
 services:
   web-app:
-     container_name: covid-app-dev
+     container_name: covid097
      build:
       context: .
       dockerfile: Dockerfile
      ports:
-      - 3002:${PORT}
+      - ${PORT}:3000
     #  env_file:
     #   - .env.development
-     volumes:
-      - '.:/app'
-      # - '/app/node_modules'
+    #  volumes:
+    #   - '.:/app'
+    #   - '/app/node_modules'
      environment:
       #  - CHOKIDAR_USEPOLLING=true
      - REACT_APP_ENVIRNOMENT=${REACT_APP_COMPOSE}

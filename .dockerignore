@@ -1,0 +1,8 @@
+node_modules  
+build
+.dockerignore
+Dockerfile
+Dockerfile.prod
+**/node_modules
+**/.git
+npm-debug.logRUN npm ci --silent

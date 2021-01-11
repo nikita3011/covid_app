@@ -1,17 +1,17 @@
 # base image and working directory
-FROM node:12-alpine
+FROM node:alpine
 
 
 WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
+# ENV PATH /app/node_modules/.bin:$PATH
 
 #copy the defendencies
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json /app
+ COPY package-lock.json /app
 RUN npm install 
 
 #copy the files that need app to run
-COPY . ./
+COPY . /app
 
 #port number at which the container should be exposed
 EXPOSE 3000
