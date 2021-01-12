@@ -49,27 +49,26 @@ pipeline {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-access', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                             sh  'aws s3 ls'
                             sh 'pwd'
-                            sh  'aws s3 sync baws-accessuild/ s3://nikita-deployment-assignment'
-
+                            sh  'aws s3 sync build/ s3://nikita-deployment-assignment'
                         }
                     }
                 }
             }
         }
 
-        // stage('Upload') {
-        //     steps {
-        //         echo 'Uploading...'
-        //         dir('/home/nineleaps/.jenkins/workspace/covid-app/') {
-        //             pwd() //Log current directory
-        //             //credentials is the id name under aws s3 credentials
-        //             withAWS(region:'us-east-2', credentials:'aws-access') {
-        //                 //  def identity=awsIdentity();//Log AWS credentials
-        //                 // Upload files from working directory 'build' in your project workspace
-        //                 s3Upload(bucket:'nikita-deployment-assignment', workingDir:'build', includePathPattern:'**/*')
-        //             }
-        //         }
-        //     }
-        // }
+    // stage('Upload') {
+    //     steps {
+    //         echo 'Uploading...'
+    //         dir('/home/nineleaps/.jenkins/workspace/covid-app/') {
+    //             pwd() //Log current directory
+    //             //credentials is the id name under aws s3 credentials
+    //             withAWS(region:'us-east-2', credentials:'aws-access') {
+    //                 //  def identity=awsIdentity();//Log AWS credentials
+    //                 // Upload files from working directory 'build' in your project workspace
+    //                 s3Upload(bucket:'nikita-deployment-assignment', workingDir:'build', includePathPattern:'**/*')
+    //             }
+    //         }
+    //     }
+    // }
     }
 }
