@@ -15,8 +15,8 @@ pipeline {
             // agent any
             steps {
                 script {
-                    // scannerHome = tool 'SonarScanner'
-                    scannerHome = tool 'sonar_scanner'
+                    scannerHome = tool 'SonarScanner'
+                    // scannerHome = tool 'sonar_scanner'
                 }
                 // withSonarQubeEnv('SonarQube')
                 withSonarQubeEnv('Sonarqube')  {
