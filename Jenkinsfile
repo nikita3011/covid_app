@@ -10,7 +10,7 @@ pipeline {
     //     CI = 'true'
     // }
     stages {
-        stage('Build') {
+        stage('Install') {
             steps {
                 sh 'npm install'
             }
@@ -37,8 +37,12 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
         stage('Deployment') {
-            
             parallel {
                 stage('Production') {
                     steps {
