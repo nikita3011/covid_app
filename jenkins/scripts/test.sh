@@ -8,11 +8,11 @@ echo 'installing this dependency, it would typically be done so using this'
 echo 'flag. For a comprehensive explanation about "devDependencies", see'
 echo 'https://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies.'
 set -x
-npm install --save-dev cross-env
+yarn install --save-dev cross-env
 set +x
 #enables a mode of the shell where all executed commands are printed to the terminal. it's clearly used for debugging, which is a typical use case for set -x : printing every command as it is executed may help you to visualize the control flow of the script
 echo 'The following "npm" command tests that your simple Node.js/React'
 echo 'application renders satisfactorily. This command actually invokes the test'
 echo 'runner Jest (https://facebook.github.io/jest/).'
 set -x
-npm test
+yarn test
