@@ -1,14 +1,14 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { findByTestAtrr } from "../../../../utils/index";
-// import Enzyme from "enzyme";
-// import Adapter from "enzyme-adapter-react-16";
+import Enzyme from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import Cards from "../Cards";
 
 
-// Enzyme.configure({
-//     adapter: new Adapter(),
-//   });
+Enzyme.configure({
+    adapter: new Adapter(),
+  });
 
 
 describe("Cards", () => {

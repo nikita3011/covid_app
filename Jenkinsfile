@@ -1,50 +1,53 @@
 pipeline {
     agent any
-       stages {
-        stage('Install') {
+    // agent {
+    //     docker {
+    //         image 'node:12-alpine'
+    //         args '-p 3000:3000'
+    //     }
+    // }
+    // environment {
+    //     CI = 'true'
+    // }
+    stages {
+        stage('Build') {
             steps {
-                echo 'Installation...'
                 sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Clone sources') {
             steps {
-                echo 'Testing...'
-                sh 'npm test'
+                git url: 'https://github.com/nikita3011/covid_app.git'
             }
         }
-//         stage('Sonarqube') {
-//             environment {
-//                  scannerHome = tool 'sonar_scanner'
-//             }
-//             steps {
-//                 echo 'Scanning....'
-//                 withSonarQubeEnv('Sonarqube') {
-//                 sh "${scannerHome}/bin/sonar-scanner"
-//              }
-//             //     timeout(time: 10, unit: 'MINUTES') {
-//             //     waitForQualityGate abortPipeline: true
-//             // }
-//         }
-//     }
-//      stage('Build') {
-//             steps {
-//                 echo 'Production build...'
-//                 sh 'npm run build'
-//             }
-//         }
-//     stage('Upload') {
-//         steps{
-//         echo 'Uploading...'
-//         dir('/home/user/.jenkins/workspace/samplejenkins'){
-//             pwd(); //Log current directory
-//             withAWS(region:'us-east-2',credentials:'aws-credentials') {
-//                 //  def identity=awsIdentity();//Log AWS credentials
-//                 // Upload files from working directory 'dist' in your project workspace
-//                 s3Upload(bucket:"nikita-deployment-assignment", workingDir:'build', includePathPattern:'**/*');
-//             }
-//         }
-//     }
-//     }
-}
+        stage('build & SonarQube analysis') {
+            agent any
+            steps {
+                script {
+                    scannerHome = tool 'SonarScanner'
+                }
+                withSonarQubeEnv('SonarQube') {
+                    echo "${scannerHome}"
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
+        stage('Quality gate') {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+       stage('Deployment') {
+            parallel {
+                stage('Production') {
+                    steps {
+                        // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'JenkinsUser', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                            sh  "aws s3 ls"
+                            sh  "aws s3 sync build/ s3://nikita-deployment-assignment"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
