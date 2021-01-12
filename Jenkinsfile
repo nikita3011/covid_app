@@ -50,7 +50,7 @@ pipeline {
                             //sh './jenkins/scripts/deliver.sh'
                             // sh 'npm run build'
                             sh  'aws s3 ls'
-                            sh 'pwd'
+                            echo 'pwd'
                             sh  'aws s3 sync build/ s3://nikita-assignment'
                         }
                     }
