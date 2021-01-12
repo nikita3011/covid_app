@@ -58,19 +58,19 @@ pipeline {
         //     }
         // }
 
-         stage('Upload') {
-        steps{
-        echo 'Uploading...'
-        dir('/home/nineleaps/.jenkins/workspace/covid-app/'){
-            pwd(); //Log current directory
-            //credentials is the id name under aws s3 credentials 
-            withAWS(region:'us-east-2',credentials:'aws-access') {
-                //  def identity=awsIdentity();//Log AWS credentials
-                // Upload files from working directory 'build' in your project workspace      
-                s3Upload(bucket:"nikita-deployment-assignment", workingDir:'build', includePathPattern:'**/*');
+        stage('Upload') {
+            steps {
+                echo 'Uploading...'
+                dir('/home/nineleaps/.jenkins/workspace/covid-app/') {
+                    pwd() //Log current directory
+                    //credentials is the id name under aws s3 credentials
+                    withAWS(region:'us-east-2', credentials:'aws-access') {
+                        //  def identity=awsIdentity();//Log AWS credentials
+                        // Upload files from working directory 'build' in your project workspace
+                        s3Upload(bucket:'nikita-deployment-assignment', workingDir:'build', includePathPattern:'**/*')
+                    }
+                }
             }
         }
-    }
-    }
     }
 }
