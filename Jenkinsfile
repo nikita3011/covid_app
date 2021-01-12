@@ -51,7 +51,7 @@ pipeline {
                             // sh 'npm run build'
                             sh  'aws s3 ls'
                             sh 'pwd'
-                            sh  'aws s3 sync build/ s3://nikita-deployment-assignment'
+                            sh  'aws s3 sync build/ s3://nikita-assignment'
                         }
                     }
                 }
