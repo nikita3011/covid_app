@@ -47,7 +47,7 @@ pipeline {
                 stage('Production') {
                     steps {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-access', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                            // sh './jenkins/scripts/deliver.sh'
+                            sh './jenkins/scripts/deliver.sh'
                             // sh 'npm run build'
                             sh  'aws s3 ls'
                             sh 'pwd'
@@ -56,7 +56,6 @@ pipeline {
                     }
                 }
             }
-            
         }
 
     // stage('Upload') {
