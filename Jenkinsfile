@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'yarn test'
+                // sh 'yarn test'
+                sh 'CI=true yarn test'
+
             }
         }
         stage('build & SonarQube analysis') {
