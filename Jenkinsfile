@@ -41,7 +41,7 @@ pipeline {
             parallel {
                 stage('Production') {
                     steps {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'JenkinsUser', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-accesss', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                             sh  'aws s3 ls'
                             sh  'aws s3 sync build/ s3://nikita-deployment-assignment'
                         }
