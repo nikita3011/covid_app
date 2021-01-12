@@ -12,7 +12,7 @@ pipeline {
             }
         }
         stage('build & SonarQube analysis') {
-            // agent any
+            agent any
             steps {
                 script {
                     scannerHome = tool 'SonarScanner'
