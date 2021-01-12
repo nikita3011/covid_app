@@ -12,12 +12,14 @@ pipeline {
             }
         }
         stage('build & SonarQube analysis') {
-            agent any
+            // agent any
             steps {
                 script {
-                    scannerHome = tool 'SonarScanner'
+                    // scannerHome = tool 'SonarScanner'
+                    scannerHome = tool 'sonar_scanner'
                 }
-                withSonarQubeEnv('Sonarqube') {
+                // withSonarQubeEnv('SonarQube')
+                withSonarQubeEnv('Sonaqrube')  {
                     echo "${scannerHome}"
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
