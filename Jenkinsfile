@@ -37,11 +37,11 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         sh 'npm run build'
+        //     }
+        // }
         stage('Deployment') {
             parallel {
                 stage('Production') {
