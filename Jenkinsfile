@@ -6,11 +6,11 @@ pipeline {
                 sh 'yarn install'
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         sh 'yarn test'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh 'yarn test'
+            }
+        }
         stage('build & SonarQube analysis') {
             agent any
             steps {
