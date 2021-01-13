@@ -10,19 +10,16 @@ pipeline {
             steps {
                 // sh 'yarn test'
                 sh 'CI=true yarn test'
-
             }
         }
         stage('build & SonarQube analysis') {
-            agent any
+            // agent any
             steps {
                 script {
                     scannerHome = tool 'SonarScanner'
-                    // scannerHome = tool 'sonar_scanner'
+                // scannerHome = tool 'sonar_scanner'
                 }
-                 withSonarQubeEnv('SonarQube')
-                // withSonarQubeEnv('Sonarqube')  
-                {
+                withSonarQubeEnv('SonarQube') {
                     echo "${scannerHome}"
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
