@@ -33,7 +33,7 @@ pipeline {
                 stage('Production') {
                     steps {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-access', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                            sh 'yarn build'
+                            sh 'yarn clean build'
                             sh  'aws s3 ls'
                             echo pwd
                             sh  'aws s3 sync build/ s3://nikita-assignment'
