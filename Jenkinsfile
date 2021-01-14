@@ -8,16 +8,13 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // sh 'yarn test'
                 sh 'CI=true yarn test'
             }
         }
         stage('build & SonarQube analysis') {
-            // agent any
             steps {
                 script {
                     scannerHome = tool 'SonarScanner'
-                // scannerHome = tool 'sonar_scanner'
                 }
                 withSonarQubeEnv('SonarQube') {
                     echo "${scannerHome}"
@@ -36,7 +33,6 @@ pipeline {
                 stage('Production') {
                     steps {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-access', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                            //sh './jenkins/scripts/deliver.sh'
                             sh 'yarn build'
                             sh  'aws s3 ls'
                             echo pwd
